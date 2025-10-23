@@ -1,6 +1,6 @@
 namespace CatchUpPlatform.API.shared.domain.Repositories;
 
-public class IUnitOfWork
+public interface IUnitOfWork
 {
     Task CompleteAsync();
 }
