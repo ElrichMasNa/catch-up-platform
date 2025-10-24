@@ -1,20 +1,22 @@
-using CatchUpPlatform.API.shared.infrastructure.Persistence.EFC.Interceptors;
+using CatchUpPlatform.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace CatchUpPlatform.API.shared.infrastructure.EFC.Configuration;
+namespace CatchUpPlatform.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        builder.AddCreateUpdateInterceptor();
+        builder.AddCreatedUpdatedInterceptor();
         base.OnConfiguring(builder);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        
+        // Apply snake_case naming convention to database objects
         builder.UseSnakeCaseNamingConvention();
     }
 }
